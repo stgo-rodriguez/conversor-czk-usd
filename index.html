@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="CZK USD">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <title>Conversor CZK ↔ USD</title>
+  <style>
+    :root{--bg:#f3f4f6;--card:#fff;--text:#111827;--muted:#6b7280;--line:#d1d5db;--accent:#111827;--soft:#f9fafb;--ok:#166534;--warn:#92400e}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+    main{width:min(100%,540px);margin:auto;padding:10px 14px calc(24px + env(safe-area-inset-bottom))}
+    h1{font-size:1.25rem;margin:2px 0}.sub{color:var(--muted);font-size:.82rem;margin:0 0 9px}
+    .card{background:var(--card);border-radius:16px;padding:13px;box-shadow:0 6px 20px #00000012;margin-bottom:10px}
+    label{display:block;font-size:.82rem;font-weight:700;margin-bottom:5px}
+    .money{display:grid;grid-template-columns:1fr 86px;gap:8px}
+    input,select,button{width:100%;border:1px solid var(--line);border-radius:12px;padding:13px;font:inherit;background:#fff;color:var(--text)}
+    #amount{font-size:1.65rem;font-weight:750;padding:16px}
+    input:focus,select:focus{outline:3px solid #1118271f;border-color:var(--accent)}
+    .result{margin-top:8px;padding:12px;border:1px solid #e5e7eb;border-radius:12px;background:var(--soft)}
+    .big{font-size:1.85rem;font-weight:800;line-height:1.1;word-break:break-word}.small{font-size:.8rem;color:var(--muted);margin-top:4px}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+    button{font-weight:750}.primary{background:var(--accent);color:#fff;border:0}.secondary{background:#fff}
+    .camera{background:#1f2937;color:#fff;border:0}
+    #photoInput{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+    .preview{display:none;margin-top:10px}.preview.active{display:block}
+    #previewImage{width:100%;max-height:230px;object-fit:contain;border-radius:12px;background:#111827}
+    .ocrbox{margin-top:8px;padding:10px;border-radius:10px;background:var(--soft);font-size:.85rem}
+    .progress{height:8px;border-radius:99px;background:#e5e7eb;overflow:hidden;margin-top:8px}.bar{height:100%;width:0;background:#111827;transition:width .2s}
+    .confirm{display:none;margin-top:8px}.confirm.active{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .rate{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}.rate input{font-size:1rem}.save{width:auto;background:#374151;color:white;border:0}
+    .status{font-size:.8rem;min-height:1.1em;margin-top:6px}.ok{color:var(--ok)}.warn{color:var(--warn)}
+    footer{font-size:.7rem;color:var(--muted);padding:2px}
+    canvas{display:none}
+    @media(max-height:650px){.sub,footer{display:none}.card{padding:10px}.result{padding:9px}.big{font-size:1.55rem}}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Conversor CZK ↔ USD</h1>
+  <p class="sub">Ingreso manual o captura por cámara. Conversión y OCR en el dispositivo.</p>
+
+  <section class="card">
+    <label for="amount">Importe</label>
+    <div class="money">
+      <input id="amount" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0" autofocus>
+      <select id="from" aria-label="Moneda de origen"><option value="CZK">CZK</option><option value="USD">USD</option></select>
+    </div>
+
+    <div class="result" aria-live="polite">
+      <div class="big" id="result">—</div>
+      <div class="small" id="detail">Ingrese o escanee un monto.</div>
+    </div>
+
+    <div class="actions">
+      <button class="camera" id="scanButton" type="button">📷 Escanear importe</button>
+      <button class="primary" id="swap" type="button">Cambiar sentido</button>
+    </div>
+
+    <input id="photoInput" type="file" accept="image/*" capture="environment">
+
+    <div class="preview" id="preview">
+      <img id="previewImage" alt="Fotografía capturada">
+      <div class="ocrbox" id="ocrStatus">Preparando reconocimiento…</div>
+      <div class="progress"><div class="bar" id="bar"></div></div>
+      <div class="confirm" id="confirm">
+        <button class="primary" id="useDetected" type="button">Usar importe</button>
+        <button class="secondary" id="retry" type="button">Repetir foto</button>
+      </div>
+    </div>
+    <canvas id="canvas"></canvas>
+  </section>
+
+  <section class="card">
+    <div class="rate">
+      <div><label for="rate">1 USD = cuántas CZK</label><input id="rate" type="number" inputmode="decimal" min="0.0001" step="0.0001" value="21.50"></div>
+      <button class="save" id="save" type="button">Guardar</button>
+    </div>
+    <div class="status" id="saveStatus"></div>
+  </section>
+
+  <footer>Las fotografías no se envían a un servidor. Revise el importe reconocido antes de utilizarlo.</footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const amount=$('amount'),from=$('from'),rate=$('rate'),result=$('result'),detail=$('detail');
+const input=$('photoInput'),preview=$('preview'),previewImage=$('previewImage'),ocrStatus=$('ocrStatus'),bar=$('bar'),confirmBox=$('confirm');
+let detectedValue='',worker=null;
+
+const saved=localStorage.getItem('czkUsdRate'); if(saved) rate.value=saved;
+const fmt=(n,c)=>new Intl.NumberFormat('es-AR',{style:'currency',currency:c,maximumFractionDigits:2}).format(n);
+
+function parseUserNumber(v){
+  let s=String(v).trim().replace(/\s/g,'').replace(/[^\d.,]/g,'');
+  if(!s)return NaN;
+  const dots=(s.match(/\./g)||[]).length, commas=(s.match(/,/g)||[]).length;
+  if(dots&&commas){
+    const lastDot=s.lastIndexOf('.'),lastComma=s.lastIndexOf(',');
+    const decimal=lastDot>lastComma?'.':',';
+    s=s.replace(decimal==='.'?/,/g:/\./g,'').replace(decimal, '.');
+  }else if(commas===1){
+    const p=s.split(','); s=p[1].length===3?s.replace(',',''):s.replace(',','.');
+  }else if(dots===1){
+    const p=s.split('.'); s=p[1].length===3?s.replace('.',''):s;
+  }else{s=s.replace(/[.,]/g,'');}
+  return Number(s);
+}
+function calculate(){
+  const a=parseUserNumber(amount.value),r=Number(rate.value);
+  if(!amount.value.trim()){result.textContent='—';detail.textContent='Ingrese o escanee un monto.';return}
+  if(!Number.isFinite(a)||!Number.isFinite(r)||r<=0){result.textContent='—';detail.textContent='Revise los valores.';return}
+  if(from.value==='CZK'){result.textContent=fmt(a/r,'USD');detail.textContent=`${fmt(a,'CZK')} ÷ ${r.toLocaleString('es-AR')} CZK/USD`}
+  else{result.textContent=fmt(a*r,'CZK');detail.textContent=`${fmt(a,'USD')} × ${r.toLocaleString('es-AR')} CZK/USD`}
+}
+amount.addEventListener('input',calculate);from.addEventListener('change',calculate);rate.addEventListener('input',calculate);
+$('swap').onclick=()=>{from.value=from.value==='CZK'?'USD':'CZK';calculate();amount.focus()};
+$('save').onclick=()=>{const r=Number(rate.value);const s=$('saveStatus');if(!Number.isFinite(r)||r<=0){s.textContent='Cotización inválida.';s.className='status warn';return}localStorage.setItem('czkUsdRate',r);s.textContent='Cotización guardada.';s.className='status ok';setTimeout(()=>s.textContent='',1600)};
+$('scanButton').onclick=()=>input.click();$('retry').onclick=()=>input.click();
+
+function extractCandidate(text){
+  const candidates=(text.match(/\d[\d\s.,]{0,18}\d|\d/g)||[])
+    .map(x=>x.trim()).filter(Boolean)
+    .map(raw=>({raw,value:parseUserNumber(raw)}))
+    .filter(x=>Number.isFinite(x.value)&&x.value>0);
+  if(!candidates.length)return null;
+  candidates.sort((a,b)=>b.raw.replace(/\D/g,'').length-a.raw.replace(/\D/g,'').length);
+  return candidates[0];
+}
+async function getWorker(){
+  if(worker)return worker;
+  ocrStatus.textContent='Cargando OCR local por primera vez…';
+  worker=await Tesseract.createWorker('eng',1,{
+    workerPath:'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/worker.min.js',
+    corePath:'https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.0/tesseract-core-simd-lstm.js',
+    langPath:'https://cdn.jsdelivr.net/npm/@tesseract.js-data/eng@1.0.0/4.0.0_best_int',
+    logger:m=>{
+      if(typeof m.progress==='number'){bar.style.width=Math.round(m.progress*100)+'%'}
+      if(m.status)ocrStatus.textContent=m.status==='recognizing text'?'Reconociendo número…':'Preparando OCR…';
+    }
+  });
+  await worker.setParameters({
+    tessedit_char_whitelist:'0123456789., ',
+    tessedit_pageseg_mode:'7'
+  });
+  return worker;
+}
+async function preprocess(file){
+  const bitmap=await createImageBitmap(file);
+  const max=1500,scale=Math.min(1,max/Math.max(bitmap.width,bitmap.height));
+  const w=Math.max(1,Math.round(bitmap.width*scale)),h=Math.max(1,Math.round(bitmap.height*scale));
+  const canvas=$('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d',{willReadFrequently:true});
+  ctx.drawImage(bitmap,0,0,w,h);
+  const img=ctx.getImageData(0,0,w,h),d=img.data;
+  for(let i=0;i<d.length;i+=4){const g=.299*d[i]+.587*d[i+1]+.114*d[i+2];const v=g>145?255:0;d[i]=d[i+1]=d[i+2]=v}
+  ctx.putImageData(img,0,0);bitmap.close();return canvas;
+}
+input.addEventListener('change',async()=>{
+  const file=input.files&&input.files[0];if(!file)return;
+  detectedValue='';confirmBox.classList.remove('active');bar.style.width='0';
+  preview.classList.add('active');previewImage.src=URL.createObjectURL(file);ocrStatus.textContent='Preparando imagen…';
+  try{
+    const canvas=await preprocess(file);const w=await getWorker();const {data}=await w.recognize(canvas);
+    const found=extractCandidate(data.text||'');
+    if(!found){ocrStatus.textContent='No se detectó un importe. Acerque la cámara y repita la foto.';confirmBox.classList.add('active');$('useDetected').style.display='none';return}
+    detectedValue=String(found.value);ocrStatus.textContent=`Importe detectado: ${found.raw} → ${found.value.toLocaleString('es-AR')}`;
+    $('useDetected').style.display='block';confirmBox.classList.add('active');bar.style.width='100%';
+  }catch(e){
+    console.error(e);ocrStatus.textContent=navigator.onLine?'No fue posible reconocer la imagen. Repita la foto.':'El OCR todavía no fue descargado. Conecte internet una vez, abra la app y vuelva a escanear.';
+    confirmBox.classList.add('active');$('useDetected').style.display='none';
+  }finally{input.value=''}
+});
+$('useDetected').onclick=()=>{if(!detectedValue)return;amount.value=detectedValue;calculate();preview.classList.remove('active');amount.focus()};
+window.addEventListener('load',()=>{amount.focus({preventScroll:true});if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js')});
+calculate();
+</script>
+</body>
+</html>
