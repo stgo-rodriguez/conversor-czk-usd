@@ -1,5 +1,5 @@
 {
-  "name": "Conversor CZK USD con cámara",
+  "name": "Conversor CZK USD",
   "short_name": "CZK USD",
   "start_url": "./index.html",
   "scope": "./",
