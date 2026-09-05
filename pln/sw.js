@@ -1,4 +1,4 @@
-const CACHE='pln-converter-v4-live';
+const CACHE='pln-converter-v5-spatial';
 const FILES=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install',event=>{

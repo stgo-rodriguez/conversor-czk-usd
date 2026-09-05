@@ -15,6 +15,24 @@
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}body{display:flex;justify-content:center}main{width:min(100%,480px);padding:14px 16px calc(28px + env(safe-area-inset-bottom))}.header{text-align:center;padding:4px 0 12px}.flag{font-size:3.2rem;line-height:1;margin-bottom:4px}h1{font-size:2rem;line-height:1.05;margin:0;font-weight:850;letter-spacing:-.03em}.sub{margin:8px auto 6px;color:var(--muted);font-size:1rem;line-height:1.25;max-width:360px}.pill{display:inline-block;background:#eaf0f6;color:#5b6c82;border-radius:999px;padding:5px 12px;font-size:.8rem}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 8px 24px #0f172a0d;margin-bottom:12px}label{display:block;font-size:.94rem;font-weight:800;margin-bottom:8px}.amount-wrap{position:relative}#amount{width:100%;border:1.5px solid #bfd0e2;border-radius:14px;padding:15px 44px 15px 16px;font:inherit;font-size:2rem;font-weight:650;background:#fff;color:#111827;outline:none}#amount:focus{border-color:#8bb9ee;box-shadow:0 0 0 3px #1877f214}.clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;border:0;background:#d7e0e9;color:#fff;font-size:1.1rem;font-weight:900;display:grid;place-items:center;padding:0}.scan{width:100%;margin-top:10px;border:1.5px solid #b8d4f5;border-radius:14px;padding:13px 14px;background:#eef6ff;color:#0f5fbd;font:inherit;font-size:.96rem;font-weight:850;display:flex;align-items:center;justify-content:center;gap:8px}.scan.stop{background:#fff1f1;color:#a61b1b;border-color:#f1b8b8}.scan:disabled{opacity:.55}.scan-note{text-align:center;color:var(--muted);font-size:.72rem;margin-top:7px}.results{display:grid;gap:10px;margin:12px 0}.result-row{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 14px}.coin{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:1.55rem;background:#f5f7fa}.code{font-weight:850;font-size:1rem}.name{font-size:.8rem;color:var(--muted);margin-top:1px}.value{font-size:1.55rem;font-weight:850;color:var(--result);white-space:nowrap}.refresh{width:100%;border:0;border-radius:16px;padding:15px 16px;background:linear-gradient(180deg,var(--blue),var(--blue2));color:#fff;font:inherit;font-size:1rem;font-weight:850}.refresh:disabled{opacity:.6}.meta{text-align:center;padding:10px 6px 2px;color:#52627a;font-size:.78rem;line-height:1.45}.status{min-height:1.15em;margin-top:4px}.status.ok{color:var(--ok)}.status.error{color:var(--danger)}.offline{display:grid;grid-template-columns:42px 1fr;gap:10px;align-items:center;background:var(--soft);border-radius:16px;padding:12px 14px;margin-top:10px}.offline .ico{font-size:1.55rem}.offline strong{font-size:.86rem}.offline div:last-child{font-size:.78rem;color:#52627a;line-height:1.35}.footer{text-align:center;color:#8291a6;font-size:.72rem;padding-top:4px}.brand{font-size:1rem;font-weight:750;color:#a0adbd;margin-bottom:4px}
 .scanner{display:none;margin-top:10px}.scanner.show{display:block}.video-wrap{position:relative;border-radius:16px;overflow:hidden;background:#0b0f14;aspect-ratio:3/4;max-height:55vh}.video-wrap video{width:100%;height:100%;object-fit:cover;display:block}.shade{position:absolute;inset:0;background:linear-gradient(#0008,#0008);pointer-events:none}.focus-box{position:absolute;left:8%;right:8%;top:36%;height:28%;border:2px solid #fff;border-radius:14px;box-shadow:0 0 0 999px #0007;pointer-events:none}.focus-label{position:absolute;left:50%;top:calc(36% - 31px);transform:translateX(-50%);background:#0009;color:#fff;padding:5px 9px;border-radius:999px;font-size:.72rem;font-weight:750;white-space:nowrap}.live-state{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:9px}.live-message{font-size:.8rem;color:#52627a;min-height:1.2em}.detected{font-size:1.1rem;font-weight:850;color:#0f5fbd;white-space:nowrap}.confidence{height:6px;background:#e3ebf4;border-radius:99px;overflow:hidden;margin-top:7px}.confidence>div{height:100%;width:0;background:var(--blue);transition:width .15s}.candidate-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.candidate{border:1px solid #bbd4ef;background:#fff;border-radius:999px;padding:6px 10px;font:inherit;font-size:.82rem;font-weight:800;color:#174d87}.candidate.best{background:#e8f3ff;border-color:#72adee}
 @media(max-width:360px){h1{font-size:1.7rem}.sub{font-size:.92rem}.value{font-size:1.3rem}.result-row{grid-template-columns:38px 1fr auto;padding:11px}.coin{width:38px;height:38px}}
+
+.scan-success{display:none;align-items:center;gap:10px;margin-top:10px;background:#eafaf0;border:1px solid #b8e8c7;border-radius:14px;padding:10px 12px;color:#176b35}
+.scan-success.show{display:flex}.scan-success-icon{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#22c55e;color:#fff;font-weight:900}.scan-success strong{font-size:.88rem}.scan-success div div{font-size:.76rem;color:#4e6c59;margin-top:2px}
+.scanner-modal{position:fixed;inset:0;z-index:1000;background:#050608;color:#fff;display:none;flex-direction:column;height:100dvh}
+.scanner-modal.show{display:flex}
+.scanner-top{height:78px;display:grid;grid-template-columns:52px 1fr 52px;align-items:center;padding:env(safe-area-inset-top) 10px 0;background:#0b0c0f;border-bottom:1px solid #ffffff18;flex:none}
+.scanner-close{border:0;background:transparent;color:#fff;font-size:2.4rem;line-height:1;width:48px;height:48px}
+.scanner-title{text-align:center;display:flex;flex-direction:column;gap:3px}.scanner-title strong{font-size:1.02rem}.scanner-title span{font-size:.72rem;color:#c4c7cf}.scanner-spacer{width:48px}
+.camera-stage{position:relative;flex:1;min-height:0;overflow:hidden;background:#000}.camera-stage video{width:100%;height:100%;object-fit:cover;display:block}
+.camera-vignette{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#0004 0,#0000 25%,#0000 72%,#0007 100%)}
+.guide-box{position:absolute;left:7%;right:7%;top:32%;height:29%;pointer-events:none}
+.corner{position:absolute;width:42px;height:42px;border-color:#fff;border-style:solid}.tl{left:0;top:0;border-width:4px 0 0 4px;border-radius:12px 0 0 0}.tr{right:0;top:0;border-width:4px 4px 0 0;border-radius:0 12px 0 0}.bl{left:0;bottom:0;border-width:0 0 4px 4px;border-radius:0 0 0 12px}.br{right:0;bottom:0;border-width:0 4px 4px 0;border-radius:0 0 12px 0}
+.guide-box.confirmed .corner{border-color:#20df72}.guide-hint{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);white-space:nowrap;background:#000b;padding:6px 10px;border-radius:999px;font-size:.72rem;color:#f5f5f5}
+.detected-overlay{position:absolute;top:16px;left:50%;transform:translateX(-50%);min-width:185px;max-width:86%;text-align:center;background:#0b0c0dcc;backdrop-filter:blur(8px);border:1px solid #ffffff24;border-radius:16px;padding:8px 14px}.detected-overlay>span{display:block;font-size:1.35rem;font-weight:900}.detected-overlay small{display:block;color:#cfd3da;font-size:.7rem;margin-top:2px}
+.detected-overlay.confirmed{background:#0c6b35e8;border-color:#44e98d}.confidence{height:4px;background:#ffffff27;border-radius:99px;overflow:hidden;margin-top:6px}.confidence>div{height:100%;width:0;background:#fff;transition:width .16s}
+.scanner-bottom{flex:none;min-height:165px;background:#0b0c0f;padding:12px 16px calc(14px + env(safe-area-inset-bottom));text-align:center;border-top:1px solid #ffffff16}.scanner-tip{font-size:.78rem;color:#d3d6dc}.candidate-row{min-height:38px;display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:8px 0}.candidate{border:1px solid #ffffff35;background:#1b1d22;color:#fff;border-radius:999px;padding:7px 11px;font:inherit;font-size:.78rem;font-weight:800}.candidate.best{border-color:#65b7ff;background:#103c67}.pause-scan{width:52px;height:52px;border-radius:50%;border:3px solid #fff;background:#fff;color:#111;font-size:1.3rem;font-weight:900}.formats{margin-top:9px;font-size:.67rem;color:#9ea4af;line-height:1.35}
+body.scanning{overflow:hidden}
+
 </style>
 </head>
 <body>
@@ -25,22 +43,43 @@
 <label for="amount">Cantidad en PLN (zł)</label>
 <div class="amount-wrap"><input id="amount" type="text" inputmode="decimal" autocomplete="off" placeholder="0" autofocus><button class="clear" id="clear" type="button" aria-label="Borrar">×</button></div>
 <button class="scan" id="scan" type="button">📷 <span>Escanear precio en vivo</span></button>
-<div class="scan-note">Apuntá el precio dentro del recuadro. No hace falta sacar foto.</div>
+<div class="scan-note">Reconoce también precios con los centavos separados, por ejemplo 4 ⁴⁰ → 4,40 zł.</div>
 
-<div class="scanner" id="scanner">
-  <div class="video-wrap">
-    <video id="video" autoplay muted playsinline></video>
-    <div class="focus-box"></div>
-    <div class="focus-label">Ubicá acá el precio</div>
-  </div>
-  <div class="live-state">
-    <div class="live-message" id="liveMessage">Iniciando cámara…</div>
-    <div class="detected" id="detected">—</div>
-  </div>
-  <div class="confidence"><div id="confidenceFill"></div></div>
-  <div class="candidate-row" id="candidateRow"></div>
+<div class="scan-success" id="scanSuccess">
+  <div class="scan-success-icon">✓</div>
+  <div><strong id="scanSuccessTitle">Precio reconocido</strong><div id="scanSuccessText"></div></div>
 </div>
 </section>
+
+<div class="scanner-modal" id="scanner" aria-hidden="true">
+  <div class="scanner-top">
+    <button class="scanner-close" id="scannerClose" type="button" aria-label="Cerrar">‹</button>
+    <div class="scanner-title"><strong>Escáner de precios</strong><span>Apuntá al precio. Se detecta automáticamente.</span></div>
+    <div class="scanner-spacer"></div>
+  </div>
+
+  <div class="camera-stage" id="cameraStage">
+    <video id="video" autoplay muted playsinline></video>
+    <div class="camera-vignette"></div>
+    <div class="guide-box" id="guideBox">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="guide-hint">Ubicá el precio dentro del recuadro</div>
+    </div>
+
+    <div class="detected-overlay" id="detectedOverlay">
+      <span id="detected">—</span>
+      <small id="liveMessage">Buscando precio…</small>
+      <div class="confidence"><div id="confidenceFill"></div></div>
+    </div>
+  </div>
+
+  <div class="scanner-bottom">
+    <div class="scanner-tip" id="scannerTip">Mantené la cámara estable durante un segundo.</div>
+    <div class="candidate-row" id="candidateRow"></div>
+    <button class="pause-scan" id="pauseScan" type="button">Ⅱ</button>
+    <div class="formats"><strong>Formatos reconocidos:</strong> 4,40 · 4.40 · 4 40 · 4⁴⁰ · 4 zł 40 gr · 29 zł · 1 299,00</div>
+  </div>
+</div>
 
 <section class="results">
 <div class="result-row"><div class="coin">🇪🇺</div><div><div class="code">EUR</div><div class="name">Euros</div></div><div class="value" id="eur">—</div></div>
@@ -58,7 +97,7 @@
 <script>
 const $=id=>document.getElementById(id);
 const amount=$('amount'),eur=$('eur'),usd=$('usd'),ars=$('ars'),status=$('status'),refresh=$('refresh'),lastUpdate=$('lastUpdate');
-const scan=$('scan'),scanner=$('scanner'),video=$('video'),liveMessage=$('liveMessage'),detected=$('detected'),confidenceFill=$('confidenceFill'),candidateRow=$('candidateRow');
+const scan=$('scan'),scanner=$('scanner'),video=$('video'),liveMessage=$('liveMessage'),detected=$('detected'),confidenceFill=$('confidenceFill'),candidateRow=$('candidateRow'),scannerClose=$('scannerClose'),pauseScan=$('pauseScan'),guideBox=$('guideBox'),detectedOverlay=$('detectedOverlay'),scanSuccess=$('scanSuccess'),scanSuccessTitle=$('scanSuccessTitle'),scanSuccessText=$('scanSuccessText');
 const DEFAULT={EUR:.234,USD:.253,ARS:355};
 let rates=JSON.parse(localStorage.getItem('plnRates')||'null')||DEFAULT;
 let rateDate=localStorage.getItem('plnRatesDate')||'';
@@ -108,7 +147,8 @@ async function updateRates(){
 function normalizeOcrText(text){
   return String(text).replace(/[OoQD]/g,'0').replace(/[Il|]/g,'1').replace(/[Ss]/g,'5').replace(/[—–−]/g,'-').replace(/(\d)\s+(\d{2})(?!\d)/g,'$1,$2');
 }
-function extractCandidates(text){
+function cleanToken(t){return normalizeOcrText(t).replace(/[^\d.,]/g,'').trim()}
+function extractTextCandidates(text){
   const t=normalizeOcrText(text);
   const matches=t.match(/\d{1,4}(?:[\s.'’]\d{3})*(?:[,.]\d{1,2})?|\d{1,6}/g)||[];
   const out=[];
@@ -117,16 +157,68 @@ function extractCandidates(text){
     const value=parseNumber(cleaned);
     if(!Number.isFinite(value)||value<=0||value>100000)continue;
     let score=0;
-    if(/[,.]\d{2}$/.test(cleaned))score+=10;
-    if(/[,.]\d{1}$/.test(cleaned))score+=4;
+    if(/[,.]\d{2}$/.test(cleaned))score+=12;
+    if(/[,.]\d{1}$/.test(cleaned))score+=5;
     if(value>=1&&value<=5000)score+=4;
     if(cleaned.length>=3)score+=2;
     if(value<.1)score-=8;
-    const display=cleaned.replace('.',',');
-    if(!out.some(x=>Math.abs(x.value-value)<.0001))out.push({raw:display,value,score});
+    out.push({raw:cleaned.replace('.',','),value,score,source:'text'});
   }
-  return out.sort((a,b)=>b.score-a.score||b.raw.length-a.raw.length).slice(0,6);
+  return dedupeCandidates(out);
 }
+function flattenWords(blocks){
+  const words=[];
+  for(const b of blocks||[])for(const p of b.paragraphs||[])for(const l of p.lines||[])for(const w of l.words||[]){
+    if(w&&w.text&&w.bbox)words.push({text:cleanToken(w.text),bbox:w.bbox,confidence:Number(w.confidence)||0});
+  }
+  return words.filter(w=>w.text);
+}
+function spatialCandidates(words){
+  const out=[];
+  const nums=words.map(w=>({...w,digits:w.text.replace(/\D/g,'')})).filter(w=>w.digits.length>=1&&w.digits.length<=6);
+  for(const w of nums){
+    const value=parseNumber(w.text);
+    if(Number.isFinite(value)&&value>0&&value<=100000){
+      let score=2+(w.confidence/100)*2;
+      if(w.digits.length>=2)score+=1;
+      out.push({raw:String(value).replace('.',','),value,score,source:'word'});
+    }
+  }
+  // Spatial Polish-price heuristic:
+  // integer złoty token on the left + exactly two grosz digits on the right.
+  for(const a of nums){
+    if(!/^\d{1,4}$/.test(a.digits))continue;
+    const ab=a.bbox, ah=Math.max(1,ab.y1-ab.y0), acy=(ab.y0+ab.y1)/2;
+    for(const b of nums){
+      if(a===b||!/^\d{2}$/.test(b.digits))continue;
+      const bb=b.bbox,bh=Math.max(1,bb.y1-bb.y0),bcy=(bb.y0+bb.y1)/2;
+      const gap=bb.x0-ab.x1;
+      const maxH=Math.max(ah,bh);
+      const rightOf=gap>-0.2*maxH && gap<2.4*maxH;
+      const verticalClose=Math.abs(bcy-acy)<1.05*maxH;
+      if(!rightOf||!verticalClose)continue;
+      const whole=Number(a.digits), cents=Number(b.digits);
+      if(whole>9999||cents>99)continue;
+      const value=whole+cents/100;
+      let score=18;
+      if(bh<ah*.88)score+=6;                 // cents often smaller
+      if(bb.y0<ab.y0+ah*.35)score+=3;        // cents often raised
+      if(gap>=0&&gap<ah*.7)score+=4;         // visually adjacent
+      score+=(Math.min(100,a.confidence)+Math.min(100,b.confidence))/100;
+      out.push({raw:`${whole},${String(cents).padStart(2,'0')}`,value,score,source:'spatial'});
+    }
+  }
+  return dedupeCandidates(out);
+}
+function dedupeCandidates(arr){
+  const map=new Map();
+  for(const c of arr){
+    const key=c.value.toFixed(2);
+    if(!map.has(key)||map.get(key).score<c.score)map.set(key,c);
+  }
+  return [...map.values()].sort((a,b)=>b.score-a.score).slice(0,8);
+}
+function mergeCandidates(...lists){return dedupeCandidates(lists.flat())}
 
 async function getWorker(){
   if(ocrWorker)return ocrWorker;
@@ -136,50 +228,50 @@ async function getWorker(){
   await ocrWorker.setParameters({
     tessedit_char_whitelist:'0123456789., ',
     preserve_interword_spaces:'1',
-    tessedit_pageseg_mode:Tesseract.PSM.SINGLE_BLOCK
+    tessedit_pageseg_mode:Tesseract.PSM.SPARSE_TEXT
   });
   return ocrWorker;
 }
 
-function frameCanvas(){
-  const vw=video.videoWidth,vh=video.videoHeight;
-  if(!vw||!vh)return null;
-  const sx=vw*.08, sy=vh*.36, sw=vw*.84, sh=vh*.28;
-  const scale=Math.min(1.5,1400/sw);
-  const c=document.createElement('canvas');
-  c.width=Math.max(1,Math.round(sw*scale));c.height=Math.max(1,Math.round(sh*scale));
-  const ctx=c.getContext('2d',{willReadFrequently:true});
-  ctx.drawImage(video,sx,sy,sw,sh,0,0,c.width,c.height);
+function frameCanvas(binary=false){
+  const vw=video.videoWidth,vh=video.videoHeight;if(!vw||!vh)return null;
+  const sx=vw*.055, sy=vh*.30, sw=vw*.89, sh=vh*.34;
+  const scale=Math.min(2,1600/sw);
+  const c=document.createElement('canvas');c.width=Math.max(1,Math.round(sw*scale));c.height=Math.max(1,Math.round(sh*scale));
+  const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(video,sx,sy,sw,sh,0,0,c.width,c.height);
   const d=ctx.getImageData(0,0,c.width,c.height),a=d.data;
   let min=255,max=0;
   for(let i=0;i<a.length;i+=4){const y=.299*a[i]+.587*a[i+1]+.114*a[i+2];if(y<min)min=y;if(y>max)max=y}
-  const range=Math.max(25,max-min);
+  const range=Math.max(28,max-min);
   for(let i=0;i<a.length;i+=4){
-    let y=.299*a[i]+.587*a[i+1]+.114*a[i+2];
-    y=Math.max(0,Math.min(255,(y-min)*255/range));
-    y=y<72?0:y>218?255:y;
+    let y=.299*a[i]+.587*a[i+1]+.114*a[i+2];y=Math.max(0,Math.min(255,(y-min)*255/range));
+    if(binary)y=y<148?0:255;else y=y<48?0:y>230?255:y;
     a[i]=a[i+1]=a[i+2]=y;
   }
-  ctx.putImageData(d,0,0);
-  return c;
+  ctx.putImageData(d,0,0);return c;
 }
 
 function renderCandidates(list){
   candidateRow.innerHTML='';
   list.slice(0,4).forEach((c,i)=>{
     const b=document.createElement('button');b.type='button';b.className='candidate'+(i===0?' best':'');
-    b.textContent=c.raw+' zł';b.onclick=()=>acceptValue(c.value,c.raw,true);candidateRow.appendChild(b);
+    b.textContent=c.raw+' zł';b.onclick=()=>confirmValue(c.value,c.raw,true);candidateRow.appendChild(b);
   });
 }
-
-function acceptValue(value,raw,manual=false){
-  stableValue=value;amount.value=raw.replace('.',',');calculate();
-  detected.textContent=raw.replace('.',',')+' zł';confidenceFill.style.width='100%';
-  liveMessage.textContent=manual?'Precio seleccionado':'✓ Precio reconocido';
-  lastAcceptedAt=Date.now();
-  if(navigator.vibrate)navigator.vibrate(80);
+function showSuccess(raw){
+  scanSuccessTitle.textContent='Precio reconocido automáticamente';
+  scanSuccessText.textContent=`${raw.replace('.',',')} zł cargado en el conversor.`;
+  scanSuccess.classList.add('show');
+  setTimeout(()=>scanSuccess.classList.remove('show'),4500);
 }
-
+function confirmValue(value,raw,manual=false){
+  stableValue=value;amount.value=raw.replace('.',',');calculate();lastAcceptedAt=Date.now();
+  detected.textContent=raw.replace('.',',')+' zł';liveMessage.textContent=manual?'Precio seleccionado':'✓ Precio confirmado';
+  confidenceFill.style.width='100%';guideBox.classList.add('confirmed');detectedOverlay.classList.add('confirmed');
+  if(navigator.vibrate)navigator.vibrate([60,35,80]);
+  showSuccess(raw);
+  setTimeout(()=>stopScanner(),manual?250:800);
+}
 function updateConsensus(list){
   if(!list.length){
     history.push(null);if(history.length>5)history.shift();
@@ -189,57 +281,60 @@ function updateConsensus(list){
   const top=list[0];
   history.push(top.value);if(history.length>5)history.shift();
   const same=history.filter(v=>v!==null&&Math.abs(v-top.value)<.005).length;
-  const pct=Math.min(100, same/3*100);
+  const needed=top.source==='spatial'?2:3;
+  const pct=Math.min(100,same/needed*100);
   detected.textContent=top.raw+' zł';confidenceFill.style.width=pct+'%';
-  liveMessage.textContent=same>=3?'Confirmando…':`Leyendo… ${same}/3`;
-  if(same>=3 && (stableValue===null || Math.abs(stableValue-top.value)>.005 || Date.now()-lastAcceptedAt>2500)){
-    acceptValue(top.value,top.raw,false);
-  }
+  liveMessage.textContent=same>=needed?'Confirmando…':`Leyendo… ${same}/${needed}`;
+  if(same>=needed && (stableValue===null||Math.abs(stableValue-top.value)>.005||Date.now()-lastAcceptedAt>2500))confirmValue(top.value,top.raw,false);
 }
-
 async function scanFrame(){
-  if(!scanning||busy)return;
-  busy=true;
+  if(!scanning||busy)return;busy=true;
   try{
-    const canvas=frameCanvas();if(!canvas)return;
+    const canvas=frameCanvas(false);if(!canvas)return;
     const worker=await getWorker();
-    const result=await worker.recognize(canvas);
-    updateConsensus(extractCandidates(result.data.text||''));
+    const result=await worker.recognize(canvas,{}, {blocks:true});
+    const textC=extractTextCandidates(result.data.text||'');
+    const spatialC=spatialCandidates(flattenWords(result.data.blocks));
+    let merged=mergeCandidates(spatialC,textC);
+
+    // If confidence is weak, try a high-contrast binary pass.
+    if(!merged.length || merged[0].score<10){
+      const bin=frameCanvas(true);
+      const r2=await worker.recognize(bin,{}, {blocks:true});
+      merged=mergeCandidates(
+        merged,
+        spatialCandidates(flattenWords(r2.data.blocks)),
+        extractTextCandidates(r2.data.text||'')
+      );
+    }
+    updateConsensus(merged);
   }catch(e){
     console.error(e);liveMessage.textContent='Error leyendo cámara';status.textContent=e.message||'Error OCR';status.className='status error';
   }finally{busy=false}
 }
-
-function scheduleLoop(){
-  clearInterval(loopTimer);
-  loopTimer=setInterval(()=>{if(scanning)scanFrame()},700);
-}
-
+function scheduleLoop(){clearInterval(loopTimer);loopTimer=setInterval(()=>{if(scanning)scanFrame()},850)}
 async function startScanner(){
-  if(scanning)return stopScanner();
+  if(scanning)return;
   try{
-    status.textContent='';status.className='status';scan.disabled=true;liveMessage.textContent='Solicitando cámara…';
-    stream=await navigator.mediaDevices.getUserMedia({
-      video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080},focusMode:{ideal:'continuous'}},
-      audio:false
-    });
-    video.srcObject=stream;await video.play();
-    scanning=true;scanner.classList.add('show');scan.classList.add('stop');scan.innerHTML='■ <span>Detener escáner</span>';
-    history=[];stableValue=null;detected.textContent='—';confidenceFill.style.width='0%';liveMessage.textContent='Buscando precio…';
-    scheduleLoop();
+    status.textContent='';status.className='status';scan.disabled=true;
+    scanner.classList.add('show');scanner.setAttribute('aria-hidden','false');document.body.classList.add('scanning');
+    liveMessage.textContent='Solicitando cámara…';guideBox.classList.remove('confirmed');detectedOverlay.classList.remove('confirmed');
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}},audio:false});
+    video.srcObject=stream;await video.play();scanning=true;history=[];stableValue=null;detected.textContent='—';confidenceFill.style.width='0%';liveMessage.textContent='Buscando precio…';scheduleLoop();
   }catch(e){
-    console.error(e);status.textContent='No se pudo abrir la cámara. Revisá el permiso del navegador.';status.className='status error';
+    console.error(e);stopScanner();status.textContent='No se pudo abrir la cámara. Revisá el permiso del navegador.';status.className='status error';
   }finally{scan.disabled=false}
 }
-
 function stopScanner(){
   scanning=false;clearInterval(loopTimer);loopTimer=null;
   if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}
-  video.srcObject=null;scanner.classList.remove('show');scan.classList.remove('stop');scan.innerHTML='📷 <span>Escanear precio en vivo</span>';
-  history=[];candidateRow.innerHTML='';confidenceFill.style.width='0%';
+  video.srcObject=null;scanner.classList.remove('show');scanner.setAttribute('aria-hidden','true');document.body.classList.remove('scanning');
+  history=[];candidateRow.innerHTML='';confidenceFill.style.width='0%';guideBox.classList.remove('confirmed');detectedOverlay.classList.remove('confirmed');
 }
 
 scan.addEventListener('click',startScanner);
+scannerClose.addEventListener('click',stopScanner);
+pauseScan.addEventListener('click',()=>{ if(scanning){scanning=false;pauseScan.textContent='▶';liveMessage.textContent='Escáner pausado';}else{scanning=true;pauseScan.textContent='Ⅱ';liveMessage.textContent='Buscando precio…';} });
 amount.addEventListener('input',calculate);
 $('clear').addEventListener('click',()=>{amount.value='';calculate();amount.focus()});
 refresh.addEventListener('click',updateRates);
