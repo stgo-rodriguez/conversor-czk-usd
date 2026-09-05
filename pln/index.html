@@ -11,202 +11,245 @@
 <link rel="apple-touch-icon" href="./icon-192.png">
 <title>Conversor PLN</title>
 <style>
-:root{
-  --bg:#f5f8fb;--card:#ffffff;--text:#0f2240;--muted:#6b7b91;--line:#dbe4ee;
-  --blue:#1877f2;--blue2:#0f6fe8;--result:#0b1f3a;--ok:#16a34a;--soft:#eef6ff;
-}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}
-body{display:flex;justify-content:center}
-main{
-  width:min(100%,480px);
-  padding:14px 16px calc(28px + env(safe-area-inset-bottom));
-}
-.header{text-align:center;padding:4px 0 12px}
-.flag{font-size:3.2rem;line-height:1;margin-bottom:4px}
-h1{font-size:2rem;line-height:1.05;margin:0;font-weight:850;letter-spacing:-.03em}
-.sub{margin:8px auto 6px;color:var(--muted);font-size:1rem;line-height:1.25;max-width:360px}
-.pill{display:inline-block;background:#eaf0f6;color:#5b6c82;border-radius:999px;padding:5px 12px;font-size:.8rem}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 8px 24px #0f172a0d;margin-bottom:12px}
-label{display:block;font-size:.94rem;font-weight:800;margin-bottom:8px}
-.amount-wrap{position:relative}
-#amount{width:100%;border:1.5px solid #bfd0e2;border-radius:14px;padding:15px 44px 15px 16px;font:inherit;font-size:2rem;font-weight:650;background:#fff;color:#111827;outline:none}
-#amount:focus{border-color:#8bb9ee;box-shadow:0 0 0 3px #1877f214}
-.clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;border:0;background:#d7e0e9;color:#fff;font-size:1.1rem;font-weight:900;display:grid;place-items:center;padding:0}
-.results{display:grid;gap:10px;margin:12px 0}
-.result-row{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 14px}
-.coin{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:1.55rem;background:#f5f7fa}
-.code{font-weight:850;font-size:1rem}.name{font-size:.8rem;color:var(--muted);margin-top:1px}
-.value{font-size:1.55rem;font-weight:850;color:var(--result);white-space:nowrap}
-.refresh{width:100%;border:0;border-radius:16px;padding:15px 16px;background:linear-gradient(180deg,var(--blue),var(--blue2));color:#fff;font:inherit;font-size:1rem;font-weight:850}
-.refresh:disabled{opacity:.6}
-.meta{text-align:center;padding:10px 6px 2px;color:#52627a;font-size:.78rem;line-height:1.45}
-.status{min-height:1.15em;margin-top:4px}
-.status.ok{color:var(--ok)}.status.error{color:#b91c1c}
-.offline{display:grid;grid-template-columns:42px 1fr;gap:10px;align-items:center;background:var(--soft);border-radius:16px;padding:12px 14px;margin-top:10px}
-.offline .ico{font-size:1.55rem}.offline strong{font-size:.86rem}.offline div:last-child{font-size:.78rem;color:#52627a;line-height:1.35}
-.footer{text-align:center;color:#8291a6;font-size:.72rem;padding-top:4px}
-.brand{font-size:1rem;font-weight:750;color:#a0adbd;margin-bottom:4px}
-@media (max-width:360px){
-  h1{font-size:1.7rem}.sub{font-size:.92rem}.value{font-size:1.3rem}
-  .result-row{grid-template-columns:38px 1fr auto;padding:11px}.coin{width:38px;height:38px}
-}
+:root{--bg:#f5f8fb;--card:#fff;--text:#0f2240;--muted:#6b7b91;--line:#dbe4ee;--blue:#1877f2;--blue2:#0f6fe8;--result:#0b1f3a;--ok:#16a34a;--soft:#eef6ff;--danger:#b91c1c}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}body{display:flex;justify-content:center}main{width:min(100%,480px);padding:14px 16px calc(28px + env(safe-area-inset-bottom))}.header{text-align:center;padding:4px 0 12px}.flag{font-size:3.2rem;line-height:1;margin-bottom:4px}h1{font-size:2rem;line-height:1.05;margin:0;font-weight:850;letter-spacing:-.03em}.sub{margin:8px auto 6px;color:var(--muted);font-size:1rem;line-height:1.25;max-width:360px}.pill{display:inline-block;background:#eaf0f6;color:#5b6c82;border-radius:999px;padding:5px 12px;font-size:.8rem}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 8px 24px #0f172a0d;margin-bottom:12px}label{display:block;font-size:.94rem;font-weight:800;margin-bottom:8px}.amount-wrap{position:relative}#amount{width:100%;border:1.5px solid #bfd0e2;border-radius:14px;padding:15px 44px 15px 16px;font:inherit;font-size:2rem;font-weight:650;background:#fff;color:#111827;outline:none}#amount:focus{border-color:#8bb9ee;box-shadow:0 0 0 3px #1877f214}.clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;border:0;background:#d7e0e9;color:#fff;font-size:1.1rem;font-weight:900;display:grid;place-items:center;padding:0}.scan{width:100%;margin-top:10px;border:1.5px solid #b8d4f5;border-radius:14px;padding:13px 14px;background:#eef6ff;color:#0f5fbd;font:inherit;font-size:.96rem;font-weight:850;display:flex;align-items:center;justify-content:center;gap:8px}.scan:disabled{opacity:.55}.scan-note{text-align:center;color:var(--muted);font-size:.72rem;margin-top:7px}.results{display:grid;gap:10px;margin:12px 0}.result-row{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 14px}.coin{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:1.55rem;background:#f5f7fa}.code{font-weight:850;font-size:1rem}.name{font-size:.8rem;color:var(--muted);margin-top:1px}.value{font-size:1.55rem;font-weight:850;color:var(--result);white-space:nowrap}.refresh{width:100%;border:0;border-radius:16px;padding:15px 16px;background:linear-gradient(180deg,var(--blue),var(--blue2));color:#fff;font:inherit;font-size:1rem;font-weight:850}.refresh:disabled{opacity:.6}.meta{text-align:center;padding:10px 6px 2px;color:#52627a;font-size:.78rem;line-height:1.45}.status{min-height:1.15em;margin-top:4px}.status.ok{color:var(--ok)}.status.error{color:var(--danger)}.offline{display:grid;grid-template-columns:42px 1fr;gap:10px;align-items:center;background:var(--soft);border-radius:16px;padding:12px 14px;margin-top:10px}.offline .ico{font-size:1.55rem}.offline strong{font-size:.86rem}.offline div:last-child{font-size:.78rem;color:#52627a;line-height:1.35}.footer{text-align:center;color:#8291a6;font-size:.72rem;padding-top:4px}.brand{font-size:1rem;font-weight:750;color:#a0adbd;margin-bottom:4px}
+#photoInput{display:none}.ocr-panel{display:none;margin-top:10px;padding:12px;border-radius:14px;background:#f8fbff;border:1px solid #d8e8fa}.ocr-panel.show{display:block}.ocr-title{font-size:.82rem;font-weight:800}.ocr-progress{font-size:.76rem;color:var(--muted);margin-top:4px}.ocr-bar{height:6px;background:#e3ebf4;border-radius:99px;overflow:hidden;margin-top:8px}.ocr-fill{height:100%;width:0;background:var(--blue);transition:width .2s}.candidates{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.candidate{border:1px solid #bbd4ef;background:#fff;border-radius:999px;padding:7px 11px;font:inherit;font-weight:800;color:#174d87}.candidate.best{background:#e8f3ff;border-color:#72adee}.preview{display:none;width:100%;max-height:170px;object-fit:contain;border-radius:10px;margin-top:9px;background:#111}.preview.show{display:block}.ocr-error{font-size:.76rem;color:var(--danger);margin-top:7px}
+@media(max-width:360px){h1{font-size:1.7rem}.sub{font-size:.92rem}.value{font-size:1.3rem}.result-row{grid-template-columns:38px 1fr auto;padding:11px}.coin{width:38px;height:38px}}
 </style>
 </head>
 <body>
 <main>
-  <header class="header">
-    <div class="flag">🇵🇱</div>
-    <h1>Conversor PLN</h1>
-    <div class="sub">Złoty polaco a euros, dólares y pesos argentinos</div>
-    <div class="pill">Tipo de cambio actualizado online</div>
-  </header>
+<header class="header"><div class="flag">🇵🇱</div><h1>Conversor PLN</h1><div class="sub">Złoty polaco a euros, dólares y pesos argentinos</div><div class="pill">Tipo de cambio actualizado online</div></header>
 
-  <section class="card">
-    <label for="amount">Cantidad en PLN (zł)</label>
-    <div class="amount-wrap">
-      <input id="amount" type="text" inputmode="decimal" autocomplete="off" placeholder="0" autofocus>
-      <button class="clear" id="clear" type="button" aria-label="Borrar">×</button>
-    </div>
-  </section>
+<section class="card">
+<label for="amount">Cantidad en PLN (zł)</label>
+<div class="amount-wrap"><input id="amount" type="text" inputmode="decimal" autocomplete="off" placeholder="0" autofocus><button class="clear" id="clear" type="button" aria-label="Borrar">×</button></div>
+<button class="scan" id="scan" type="button">📷 <span>Escanear precio con cámara</span></button>
+<input id="photoInput" type="file" accept="image/*" capture="environment">
+<div class="scan-note">OCR optimizado para números y precios · la foto se procesa en tu dispositivo</div>
+<div class="ocr-panel" id="ocrPanel">
+  <div class="ocr-title" id="ocrTitle">Analizando precio…</div>
+  <div class="ocr-progress" id="ocrProgress">Preparando imagen</div>
+  <div class="ocr-bar"><div class="ocr-fill" id="ocrFill"></div></div>
+  <img id="preview" class="preview" alt="Foto a analizar">
+  <div class="candidates" id="candidates"></div>
+  <div class="ocr-error" id="ocrError"></div>
+</div>
+</section>
 
-  <section class="results">
-    <div class="result-row">
-      <div class="coin">🇪🇺</div>
-      <div><div class="code">EUR</div><div class="name">Euros</div></div>
-      <div class="value" id="eur">—</div>
-    </div>
-    <div class="result-row">
-      <div class="coin">🇺🇸</div>
-      <div><div class="code">USD</div><div class="name">Dólares</div></div>
-      <div class="value" id="usd">—</div>
-    </div>
-    <div class="result-row">
-      <div class="coin">🇦🇷</div>
-      <div><div class="code">ARS</div><div class="name">Pesos argentinos</div></div>
-      <div class="value" id="ars">—</div>
-    </div>
-  </section>
+<section class="results">
+<div class="result-row"><div class="coin">🇪🇺</div><div><div class="code">EUR</div><div class="name">Euros</div></div><div class="value" id="eur">—</div></div>
+<div class="result-row"><div class="coin">🇺🇸</div><div><div class="code">USD</div><div class="name">Dólares</div></div><div class="value" id="usd">—</div></div>
+<div class="result-row"><div class="coin">🇦🇷</div><div><div class="code">ARS</div><div class="name">Pesos argentinos</div></div><div class="value" id="ars">—</div></div>
+</section>
 
-  <button class="refresh" id="refresh" type="button">↻ &nbsp; Actualizar cotizaciones</button>
-
-  <div class="meta">
-    <div id="lastUpdate">Última actualización: —</div>
-    <div id="status" class="status"></div>
-  </div>
-
-  <section class="offline">
-    <div class="ico">📡</div>
-    <div><strong>Funciona sin conexión</strong><br>Se usa la última cotización guardada en tu dispositivo.</div>
-  </section>
-
-  <footer class="footer">
-    <div class="brand">Złoty Polaco</div>
-    Rápido · Simple · Siempre actualizado
-  </footer>
+<button class="refresh" id="refresh" type="button">↻ &nbsp; Actualizar cotizaciones</button>
+<div class="meta"><div id="lastUpdate">Última actualización: —</div><div id="status" class="status"></div></div>
+<section class="offline"><div class="ico">📡</div><div><strong>Funciona sin conexión</strong><br>Se usa la última cotización guardada en tu dispositivo.</div></section>
+<footer class="footer"><div class="brand">Złoty Polaco</div>Rápido · Simple · Siempre actualizado</footer>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@7/dist/tesseract.min.js"></script>
 <script>
 const $=id=>document.getElementById(id);
-const amount=$('amount'),eur=$('eur'),usd=$('usd'),ars=$('ars');
-const status=$('status'),refresh=$('refresh'),lastUpdate=$('lastUpdate');
-
-const DEFAULT={EUR:0.234,USD:0.253,ARS:355};
+const amount=$('amount'),eur=$('eur'),usd=$('usd'),ars=$('ars'),status=$('status'),refresh=$('refresh'),lastUpdate=$('lastUpdate');
+const scan=$('scan'),photoInput=$('photoInput'),ocrPanel=$('ocrPanel'),ocrTitle=$('ocrTitle'),ocrProgress=$('ocrProgress'),ocrFill=$('ocrFill'),candidatesEl=$('candidates'),ocrError=$('ocrError'),preview=$('preview');
+const DEFAULT={EUR:.234,USD:.253,ARS:355};
 let rates=JSON.parse(localStorage.getItem('plnRates')||'null')||DEFAULT;
 let rateDate=localStorage.getItem('plnRatesDate')||'';
+let ocrWorker=null;
 
-const fmt=(value,currency)=>new Intl.NumberFormat('es-AR',{
-  style:'currency',currency,maximumFractionDigits:2
-}).format(value);
+const fmt=(value,currency)=>new Intl.NumberFormat('es-AR',{style:'currency',currency,maximumFractionDigits:2}).format(value);
 
 function parseNumber(value){
   let text=String(value).trim().replace(/\s/g,'').replace(/[^\d.,]/g,'');
   if(!text)return NaN;
-  const dots=(text.match(/\./g)||[]).length, commas=(text.match(/,/g)||[]).length;
+  const dots=(text.match(/\./g)||[]).length,commas=(text.match(/,/g)||[]).length;
   if(dots&&commas){
     const decimal=text.lastIndexOf('.')>text.lastIndexOf(',')?'.':',';
     text=text.replace(decimal==='.'?/,/g:/\./g,'').replace(decimal,'.');
   }else if(commas===1){
-    const parts=text.split(',');
-    text=parts[1].length===3?text.replace(',',''):text.replace(',','.');
+    const p=text.split(',');
+    text=p[1].length===3?text.replace(',',''):text.replace(',','.');
   }else if(dots===1){
-    const parts=text.split('.');
-    text=parts[1].length===3?text.replace('.',''):text;
+    const p=text.split('.');
+    text=p[1].length===3?text.replace('.',''):text;
   }else text=text.replace(/[.,]/g,'');
   return Number(text);
+}
+
+function calculate(){
+  const value=parseNumber(amount.value);
+  if(!amount.value.trim()||!Number.isFinite(value)){eur.textContent=usd.textContent=ars.textContent='—';return}
+  eur.textContent=fmt(value*rates.EUR,'EUR');
+  usd.textContent=fmt(value*rates.USD,'USD');
+  ars.textContent=fmt(value*rates.ARS,'ARS');
 }
 
 function renderMeta(){
   lastUpdate.textContent=rateDate?`Última actualización: ${rateDate}`:'Última actualización: sin actualizar';
 }
 
-function calculate(){
-  const value=parseNumber(amount.value);
-  if(!amount.value.trim()||!Number.isFinite(value)){
-    eur.textContent=usd.textContent=ars.textContent='—'; return;
-  }
-  eur.textContent=fmt(value*rates.EUR,'EUR');
-  usd.textContent=fmt(value*rates.USD,'USD');
-  ars.textContent=fmt(value*rates.ARS,'ARS');
-}
-
 async function updateRates(){
   status.className='status';
-  if(!navigator.onLine){
-    status.textContent='Sin conexión · usando cotizaciones guardadas';
-    status.classList.add('error'); return;
-  }
-
-  refresh.disabled=true;
-  refresh.textContent='Actualizando…';
-  status.textContent='Consultando cotizaciones…';
-
+  if(!navigator.onLine){status.textContent='Sin conexión · usando cotizaciones guardadas';status.classList.add('error');return}
+  refresh.disabled=true;refresh.textContent='Actualizando…';status.textContent='Consultando cotizaciones…';
   try{
-    const response=await fetch(
-      'https://api.frankfurter.dev/v2/rates?base=PLN&quotes=EUR,USD,ARS',
-      {cache:'no-store'}
-    );
+    const response=await fetch('https://api.frankfurter.dev/v2/rates?base=PLN&quotes=EUR,USD,ARS',{cache:'no-store'});
     if(!response.ok)throw new Error(`HTTP ${response.status}`);
-
-    const data=await response.json();
-    const next={...rates};
-    for(const row of data){
-      if(['EUR','USD','ARS'].includes(row.quote)) next[row.quote]=Number(row.rate);
-    }
+    const data=await response.json(),next={...rates};
+    for(const row of data)if(['EUR','USD','ARS'].includes(row.quote))next[row.quote]=Number(row.rate);
     if(![next.EUR,next.USD,next.ARS].every(Number.isFinite))throw new Error('Datos incompletos');
-
-    rates=next;
-    rateDate=data[0]?.date||new Date().toISOString().slice(0,10);
-    localStorage.setItem('plnRates',JSON.stringify(rates));
-    localStorage.setItem('plnRatesDate',rateDate);
-
-    calculate();
-    renderMeta();
-    status.textContent='● Cotizaciones actualizadas (online)';
-    status.classList.add('ok');
-  }catch(error){
-    console.error(error);
-    status.textContent='No se pudo actualizar · usando cotizaciones guardadas';
-    status.classList.add('error');
+    rates=next;rateDate=data[0]?.date||new Date().toISOString().slice(0,10);
+    localStorage.setItem('plnRates',JSON.stringify(rates));localStorage.setItem('plnRatesDate',rateDate);
+    calculate();renderMeta();status.textContent='● Cotizaciones actualizadas (online)';status.classList.add('ok');
+  }catch(e){
+    console.error(e);status.textContent='No se pudo actualizar · usando cotizaciones guardadas';status.classList.add('error');
   }finally{
-    refresh.disabled=false;
-    refresh.innerHTML='↻ &nbsp; Actualizar cotizaciones';
+    refresh.disabled=false;refresh.innerHTML='↻ &nbsp; Actualizar cotizaciones';
   }
 }
 
+function setOcrProgress(text,pct){
+  ocrProgress.textContent=text;ocrFill.style.width=Math.max(0,Math.min(100,pct))+'%';
+}
+
+function preprocessImage(file){
+  return new Promise((resolve,reject)=>{
+    const img=new Image(),url=URL.createObjectURL(file);
+    img.onload=()=>{
+      try{
+        const maxW=1800,maxH=1800,scale=Math.min(1,maxW/img.naturalWidth,maxH/img.naturalHeight);
+        const w=Math.max(1,Math.round(img.naturalWidth*scale)),h=Math.max(1,Math.round(img.naturalHeight*scale));
+        const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+        const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0,w,h);
+        const d=ctx.getImageData(0,0,w,h),a=d.data;
+        let min=255,max=0;
+        for(let i=0;i<a.length;i+=4){
+          const y=.299*a[i]+.587*a[i+1]+.114*a[i+2];
+          if(y<min)min=y;if(y>max)max=y;
+        }
+        const range=Math.max(25,max-min);
+        for(let i=0;i<a.length;i+=4){
+          let y=.299*a[i]+.587*a[i+1]+.114*a[i+2];
+          y=Math.max(0,Math.min(255,(y-min)*255/range));
+          y=y<78?0:y>210?255:y;
+          a[i]=a[i+1]=a[i+2]=y;
+        }
+        ctx.putImageData(d,0,0);URL.revokeObjectURL(url);resolve(canvas);
+      }catch(e){URL.revokeObjectURL(url);reject(e)}
+    };
+    img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('No se pudo abrir la imagen'))};
+    img.src=url;
+  });
+}
+
+function normalizeOcrText(text){
+  return String(text)
+    .replace(/[OoQD]/g,'0')
+    .replace(/[Il|]/g,'1')
+    .replace(/[Ss]/g,'5')
+    .replace(/[—–−]/g,'-')
+    .replace(/(\d)\s+(\d{2})(?!\d)/g,'$1,$2');
+}
+
+function extractCandidates(text){
+  const t=normalizeOcrText(text);
+  const matches=t.match(/\d{1,4}(?:[\s.'’]\d{3})*(?:[,.]\d{1,2})?|\d{1,6}/g)||[];
+  const out=[];
+  for(const raw of matches){
+    const cleaned=raw.replace(/[\s'’]/g,'');
+    const value=parseNumber(cleaned);
+    if(!Number.isFinite(value)||value<=0||value>100000)continue;
+    let score=0;
+    if(/[,.]\d{2}$/.test(cleaned))score+=8;
+    if(value>=1&&value<=5000)score+=4;
+    if(cleaned.length>=3)score+=2;
+    if(value<.1)score-=8;
+    const display=cleaned.replace('.',',');
+    if(!out.some(x=>Math.abs(x.value-value)<.0001))out.push({raw:display,value,score});
+  }
+  return out.sort((a,b)=>b.score-a.score||b.raw.length-a.raw.length).slice(0,8);
+}
+
+async function getWorker(){
+  if(ocrWorker)return ocrWorker;
+  if(!window.Tesseract)throw new Error('El motor OCR no pudo cargarse. Revisá la conexión e intentá de nuevo.');
+  ocrWorker=await Tesseract.createWorker('eng',Tesseract.OEM.LSTM_ONLY,{
+    logger:m=>{
+      if(m.status==='recognizing text')setOcrProgress('Reconociendo números…',30+Math.round((m.progress||0)*65));
+      else if(m.status)setOcrProgress('Preparando OCR…',20);
+    }
+  });
+  await ocrWorker.setParameters({
+    tessedit_char_whitelist:'0123456789., ',
+    preserve_interword_spaces:'1',
+    tessedit_pageseg_mode:Tesseract.PSM.SPARSE_TEXT
+  });
+  return ocrWorker;
+}
+
+function chooseCandidate(c){
+  amount.value=String(c.raw).replace('.',',');
+  calculate();amount.blur();
+  for(const b of candidatesEl.querySelectorAll('button'))b.classList.toggle('best',Number(b.dataset.value)===c.value);
+  ocrTitle.textContent='Precio seleccionado';
+  setOcrProgress('Podés tocar otro valor si el OCR encontró varios.',100);
+}
+
+function showCandidates(list){
+  candidatesEl.innerHTML='';
+  if(!list.length){
+    ocrTitle.textContent='No encontré un precio claro';
+    ocrError.textContent='Probá acercando la cámara, evitando reflejos y haciendo que el precio ocupe buena parte de la foto.';
+    return;
+  }
+  ocrTitle.textContent=list.length===1?'Precio detectado':'Precios detectados';
+  list.forEach((c,i)=>{
+    const b=document.createElement('button');
+    b.type='button';b.className='candidate'+(i===0?' best':'');
+    b.textContent=c.raw+' zł';b.dataset.value=c.value;b.onclick=()=>chooseCandidate(c);
+    candidatesEl.appendChild(b);
+  });
+  chooseCandidate(list[0]);
+}
+
+async function runOcr(file){
+  ocrPanel.classList.add('show');preview.classList.remove('show');
+  ocrError.textContent='';candidatesEl.innerHTML='';ocrTitle.textContent='Analizando precio…';
+  setOcrProgress('Mejorando contraste de la imagen…',8);scan.disabled=true;
+  try{
+    const objectUrl=URL.createObjectURL(file);preview.src=objectUrl;
+    preview.onload=()=>URL.revokeObjectURL(objectUrl);preview.classList.add('show');
+    const canvas=await preprocessImage(file);
+    setOcrProgress('Cargando motor OCR…',18);
+    const worker=await getWorker();
+    const result=await worker.recognize(canvas);
+    setOcrProgress('Interpretando precios…',97);
+    let list=extractCandidates(result.data.text||'');
+    if(!list.length){
+      await worker.setParameters({tessedit_char_whitelist:'0123456789., złPLNZL',tessedit_pageseg_mode:Tesseract.PSM.AUTO});
+      const retry=await worker.recognize(canvas);
+      list=extractCandidates(retry.data.text||'');
+    }
+    showCandidates(list);
+  }catch(e){
+    console.error(e);ocrTitle.textContent='No se pudo leer la foto';ocrError.textContent=e.message||'Error de OCR';setOcrProgress('Error',0);
+  }finally{
+    scan.disabled=false;photoInput.value='';
+  }
+}
+
+scan.addEventListener('click',()=>photoInput.click());
+photoInput.addEventListener('change',()=>{const file=photoInput.files&&photoInput.files[0];if(file)runOcr(file)});
 amount.addEventListener('input',calculate);
 $('clear').addEventListener('click',()=>{amount.value='';calculate();amount.focus()});
 refresh.addEventListener('click',updateRates);
 
 window.addEventListener('load',()=>{
-  amount.focus({preventScroll:true});
-  calculate();
-  renderMeta();
-  if(rateDate){
-    status.textContent='● Cotizaciones guardadas disponibles';
-    status.classList.add('ok');
-  }
-  if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js');
+  amount.focus({preventScroll:true});calculate();renderMeta();
+  if(rateDate){status.textContent='● Cotizaciones guardadas disponibles';status.classList.add('ok')}
+  if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');
 });
 </script>
 </body>
