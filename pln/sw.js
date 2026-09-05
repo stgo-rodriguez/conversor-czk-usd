@@ -1,4 +1,4 @@
-const CACHE='pln-converter-v3';
+const CACHE='pln-converter-v4-live';
 const FILES=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install',event=>{
@@ -14,12 +14,10 @@ self.addEventListener('activate',event=>{
 self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
   const url=new URL(event.request.url);
-
-  if(url.hostname==='api.frankfurter.dev'){
-    event.respondWith(fetch(event.request));
+  if(url.hostname==='api.frankfurter.dev'||url.hostname==='cdn.jsdelivr.net'){
+    event.respondWith(fetch(event.request).catch(()=>caches.match(event.request)));
     return;
   }
-
   event.respondWith(
     fetch(event.request).then(response=>{
       const copy=response.clone();
